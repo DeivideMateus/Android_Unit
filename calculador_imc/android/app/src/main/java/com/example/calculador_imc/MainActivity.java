@@ -1,4 +1,4 @@
-package com.my_tasks;
+package com.example.calculador_imc;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
