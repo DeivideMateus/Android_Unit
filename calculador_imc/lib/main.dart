@@ -83,34 +83,8 @@ class _HomeState extends State<Home> {
                   size: 120.0,
                   color: Colors.green,
                 ),
-                TextFormField(
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                      labelText: "Peso (kg)",
-                      labelStyle: TextStyle(color: Colors.green)),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.green, fontSize: 25.0),
-                  controller: pesoController,
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return "Insira seu Peso";
-                    }
-                  },
-                ),
-                TextFormField(
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                      labelText: "Altura (cm)",
-                      labelStyle: TextStyle(color: Colors.green)),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.green, fontSize: 25.0),
-                  controller: alturaController,
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return "Insira sua altura";
-                    }
-                  },
-                ),
+                buildTextFormField("Peso (kg)", "Insira seu peso", pesoController),
+                buildTextFormField("Altura (cm)", "Insira sua altura", alturaController),
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
                   child: Container(
@@ -147,4 +121,21 @@ class _HomeState extends State<Home> {
           )),
         ));
   }
+}
+
+Widget buildTextFormField(String label, String validator, TextEditingController c){
+  return TextFormField(
+    keyboardType: TextInputType.number,
+    decoration: InputDecoration(
+        labelText: label,
+        labelStyle: TextStyle(color: Colors.green)),
+    textAlign: TextAlign.center,
+    style: TextStyle(color: Colors.green, fontSize: 25.0),
+    controller: c,
+    validator: (value) {
+      if (value.isEmpty) {
+        return validator;
+      }
+    },
+  );
 }
