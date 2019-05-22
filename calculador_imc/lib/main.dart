@@ -29,6 +29,7 @@ class _HomeState extends State<Home> {
       _infoText = "Informe seus dados!";
       _peso = 0;
       _pesoIdeal = 0;
+      _dif = 0;
     });
   }
 
