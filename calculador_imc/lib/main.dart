@@ -18,40 +18,48 @@ class _HomeState extends State<Home> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String _infoText = "Informe seus dados!";
-  String _pesoIdeal = "";
+  double _pesoIdeal;
+  double _peso;
+  double _dif;
 
   void _resetarCampos() {
     pesoController.text = "";
     alturaController.text = "";
     setState(() {
       _infoText = "Informe seus dados!";
-      _pesoIdeal = "";
+      _peso = 0;
+      _pesoIdeal = 0;
     });
   }
 
   void _calcular() {
     setState(() {
-      double peso = double.parse(pesoController.text);
+      _peso = double.parse(pesoController.text);
       double altura = double.parse(alturaController.text) / 100;
-      double imc = peso / (altura * altura);
+      double imc = _peso / (altura * altura);
+      double pesoMin = 18.6 * (altura * altura);
+      double pesoMax = 24.8 * (altura * altura);
+      _pesoIdeal = pesoMin + (pesoMax - pesoMin) / 2 + 4;
+
       if (imc < 18.6) {
-        _infoText = "Abaixo do Peso(${imc.toStringAsPrecision(3)})";
+        _infoText = "Abaixo do Peso \nImc: ${imc.toStringAsPrecision(3)}";
+        _dif = _pesoIdeal - _peso;
       } else if (imc >= 18.6 && imc < 24.9) {
-        _infoText = "Peso Ideal(${imc.toStringAsPrecision(3)})";
+        _infoText = "O Peso está Ideal \nImc: ${imc.toStringAsPrecision(3)}";
+        _dif = _peso - _pesoIdeal;
       } else if (imc >= 24.9 && imc < 29.9) {
-        _infoText = "Levemente acima do peso(${imc.toStringAsPrecision(3)})";
+        _infoText = "Você etá com sobrepeso \nImc: ${imc.toStringAsPrecision(3)}";
+        _dif = _peso - _pesoIdeal;
       } else if (imc >= 29.9 && imc < 34.9) {
-        _infoText = "Obesidade Grau I(${imc.toStringAsPrecision(3)})";
+        _infoText = "Obesidade Grau I \nImc: ${imc.toStringAsPrecision(3)}";
+        _dif = _peso - _pesoIdeal;
       } else if (imc >= 34.9 && imc < 39.9) {
-        _infoText = "Obesidade Grau II(${imc.toStringAsPrecision(3)})";
+        _infoText = "Obesidade Grau II \nImc: ${imc.toStringAsPrecision(3)}";
+        _dif = _peso - _pesoIdeal;
       } else if (imc > 39.9) {
-        _infoText = "Obesidade Grau III(${imc.toStringAsPrecision(3)})";
+        _infoText = "Obesidade Grau III \nImc: ${imc.toStringAsPrecision(3)}";
+        _dif = _peso - _pesoIdeal;
       }
-      double pesoIdeal1 = 18.6 * (altura * altura);
-      double pesoIdeal2 = 24.8 * (altura * altura);
-      _pesoIdeal =
-          "Seu peso ideal é entre ${pesoIdeal1.toStringAsPrecision(2)} e "
-              "${pesoIdeal2.toStringAsPrecision(2)} Kg";
     });
   }
 
@@ -83,8 +91,10 @@ class _HomeState extends State<Home> {
                   size: 120.0,
                   color: Colors.green,
                 ),
-                buildTextFormField("Peso (kg)", "Insira seu peso", pesoController),
-                buildTextFormField("Altura (cm)", "Insira sua altura", alturaController),
+                buildTextFormField(
+                    "Peso (kg)", "Insira seu peso", pesoController),
+                buildTextFormField(
+                    "Altura (cm)", "Insira sua altura", alturaController),
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
                   child: Container(
@@ -108,13 +118,19 @@ class _HomeState extends State<Home> {
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.green, fontSize: 25.0),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(
-                    _pesoIdeal,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.green, fontSize: 20.0),
-                  ),
+                Row(
+                  children: <Widget>[
+                    buildText("Atual"),
+                    buildText("Ideal"),
+                    buildText("Diferença")
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    buildTextPeso(_peso),
+                    buildTextPeso(_pesoIdeal),
+                    buildTextPeso(_dif)
+                  ],
                 )
               ],
             ),
@@ -123,12 +139,12 @@ class _HomeState extends State<Home> {
   }
 }
 
-Widget buildTextFormField(String label, String validator, TextEditingController c){
+Widget buildTextFormField(
+    String label, String validator, TextEditingController c) {
   return TextFormField(
     keyboardType: TextInputType.number,
     decoration: InputDecoration(
-        labelText: label,
-        labelStyle: TextStyle(color: Colors.green)),
+        labelText: label, labelStyle: TextStyle(color: Colors.green)),
     textAlign: TextAlign.center,
     style: TextStyle(color: Colors.green, fontSize: 25.0),
     controller: c,
@@ -137,5 +153,34 @@ Widget buildTextFormField(String label, String validator, TextEditingController 
         return validator;
       }
     },
+  );
+}
+
+Widget buildText(String label) {
+  return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 10.0, 0, 10.0),
+        child: Text(
+          label,
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.green, fontSize: 20.0),
+        ),
+      )
+  );
+}
+
+Widget buildTextPeso(double peso) {
+  if(peso == null){
+    peso = 0;
+  }
+  return Expanded(
+    child:Padding(
+      padding: const EdgeInsets.fromLTRB(0, 10.0, 0, 10.0),
+      child: Text(
+        "${peso.toStringAsPrecision(2)} Kg",
+        textAlign: TextAlign.center,
+        style: TextStyle(color: Colors.green, fontSize: 20.0),
+      ),
+    )
   );
 }
