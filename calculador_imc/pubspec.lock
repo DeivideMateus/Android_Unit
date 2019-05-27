@@ -143,4 +143,8 @@ packages:
     source: hosted
     version: "2.0.8"
 sdks:
+<<<<<<< HEAD
   dart: ">=2.2.0 <3.0.0"
+=======
+  dart: ">=2.1.0 <3.0.0"
+>>>>>>> parent of 4697f0f... integrando ao firebase
