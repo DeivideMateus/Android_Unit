@@ -10,8 +10,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "Calculadora Imc",
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        primaryColor: Color.fromARGB(255, 4, 125, 141)
+        primarySwatch: Colors.green,
       ),
       debugShowCheckedModeBanner: false,
       home: Login()
