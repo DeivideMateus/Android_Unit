@@ -1,6 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Login extends StatelessWidget {
+  final formKey = GlobalKey<FormState>();
+
+  String _email;
+  String _password;
+
+  bool validateAndSave() {
+    final form = formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      return true;
+    }
+    return false;
+  }
+
+  void validateAndSubmit() async {
+    if (validateAndSave()) {
+      try {
+        FirebaseUser user = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: _email, password: _password);
+        print("Singned in: ${user.uid}");
+      } catch (e) {
+        print("Error: $e");
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,6 +53,8 @@ class Login extends StatelessWidget {
               TextFormField(
                 decoration: InputDecoration(hintText: "E-mail"),
                 keyboardType: TextInputType.emailAddress,
+                validator: (value) => value.isEmpty ? "Email inválido" : null,
+                onSaved: (value) => _email = value,
               ),
               SizedBox(
                 height: 16.0,
@@ -33,17 +62,16 @@ class Login extends StatelessWidget {
               TextFormField(
                 decoration: InputDecoration(hintText: "Senha"),
                 obscureText: true,
+                validator: (value) => value.isEmpty ? "Senha invalida" : null,
+                onSaved: (value) => _password = value,
               ),
-              Align(
-                  alignment: Alignment.centerRight,
-                  child: FlatButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Esqueci minha senha",
-                        textAlign: TextAlign.right,
-                      ),
-                    padding: EdgeInsets.zero,
-                  )
+              RaisedButton(
+                child: Text(
+                  "Login",
+                  style: TextStyle(fontSize: 20.0, color: Colors.white),
+                ),
+                color: Colors.green,
+                onPressed: validateAndSubmit,
               )
             ],
           ),

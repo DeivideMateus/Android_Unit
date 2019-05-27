@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "223649600609",
+    "firebase_url": "https://calculadoraimc-5825e.firebaseio.com",
+    "project_id": "calculadoraimc-5825e",
+    "storage_bucket": "calculadoraimc-5825e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:223649600609:android:7216aa39413a15e9",
+        "android_client_info": {
+          "package_name": "com.example.calculador_imc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "223649600609-sm54u6sqb49r3div6agh9sdqo6mguk8e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUjNsq0-ZM5O6uahAtUwcNfyiteXc7pnM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "223649600609-sm54u6sqb49r3div6agh9sdqo6mguk8e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
