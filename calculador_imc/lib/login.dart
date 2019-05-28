@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:calculador_imc/Home.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -30,11 +31,15 @@ class _LoginState extends State<Login> {
           FirebaseUser user = await FirebaseAuth.instance
               .signInWithEmailAndPassword(email: _email, password: _password);
           print("Singned in: ${user.uid}");
-        } else {
+          Navigator.of(context)
+              .pushReplacement(MaterialPageRoute(builder: (context) => Home()));
+        } 
+        else {
           FirebaseUser user = await FirebaseAuth.instance
-              .createUserWithEmailAndPassword(
-                  email: _email, password: _password);
+              .createUserWithEmailAndPassword(email: _email, password: _password);
           print("Usuário registrado: ${user.uid}");
+          Navigator.of(context)
+              .pushReplacement(MaterialPageRoute(builder: (context) => Home()));
         }
       } catch (e) {
         print("Error: $e");
