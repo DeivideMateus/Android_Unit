@@ -1,6 +1,8 @@
 import 'package:calculador_imc/login.dart';
 import 'package:flutter/material.dart';
 
+import 'loader.dart';
+
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
@@ -11,7 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: Login()
+      home: Loader()
     );
   }
 }

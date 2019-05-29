@@ -33,10 +33,10 @@ class _LoginState extends State<Login> {
           print("Singned in: ${user.uid}");
           Navigator.of(context)
               .pushReplacement(MaterialPageRoute(builder: (context) => Home()));
-        } 
-        else {
+        } else {
           FirebaseUser user = await FirebaseAuth.instance
-              .createUserWithEmailAndPassword(email: _email, password: _password);
+              .createUserWithEmailAndPassword(
+                  email: _email, password: _password);
           print("Usuário registrado: ${user.uid}");
           Navigator.of(context)
               .pushReplacement(MaterialPageRoute(builder: (context) => Home()));
@@ -104,19 +104,20 @@ class _LoginState extends State<Login> {
     if (_formType == FormType.login) {
       return [
         RaisedButton(
-          //colocar o onPressed aqui e um container no RaisedButton
-          child: Text(
-            "Login",
-            style: TextStyle(fontSize: 20.0, color: Colors.white),
+          child: Container(
+            child: Text(
+              "Login",
+              style: TextStyle(fontSize: 20.0, color: Colors.white),
+            ),
           ),
           color: Colors.green,
           onPressed: validateAndSubmit,
         ),
         RaisedButton(
-          child: Text(
-            "Criar conta",
-            style: TextStyle(fontSize: 20.0, color: Colors.white),
-          ),
+            child: Text(
+              "Criar conta",
+              style: TextStyle(fontSize: 20.0, color: Colors.white),
+            ),
           color: Colors.green,
           onPressed: moveToRegister,
         )
