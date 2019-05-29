@@ -104,6 +104,7 @@ class _LoginState extends State<Login> {
     if (_formType == FormType.login) {
       return [
         RaisedButton(
+          //colocar o onPressed aqui e um container no RaisedButton
           child: Text(
             "Login",
             style: TextStyle(fontSize: 20.0, color: Colors.white),
